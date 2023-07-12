@@ -29,7 +29,7 @@ clear
 
  
 sudo touch "/usr/local/bin/$command"
-sudo chmod /usr/local/bin/$command
+sudo chmod 777 /usr/local/bin/$command
 echo '#!/bin/bash' | sudo tee "/usr/local/bin/$command" >/dev/null
 echo "sudo openvpn /etc/openvpn/client/$ovpn" | sudo tee -a "/usr/local/bin/$command" >/dev/null
 
