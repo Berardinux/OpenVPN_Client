@@ -1,4 +1,4 @@
-k#!/bin/bash
+#!/bin/bash
 
 echo "Are you ready to install OpenVPN? (Y/N)"
 read -r one
