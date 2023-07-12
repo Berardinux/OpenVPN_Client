@@ -13,21 +13,23 @@ fi
 clear
 
 echo "What is your .ovpn file called?"
+echo "Remember to include the .ovpn at the end of the file!!"
 read -r ovpn
-
 clear
 
-echo "Where is your .ovpn file located?"
+echo "Where is your $ovpn file located?"
 read -r location
 
-sudo mv "$location" "/etc/openvpn/client/$ovpn"
-
+sudo mv "$location/$ovpn" "/etc/openvpn/client/$ovpn"
 clear
 
 echo "What would you like to call your OpenVPN command?"
 read -r command
+clear
 
+ 
 sudo touch "/usr/local/bin/$command"
+sudo chmod /usr/local/bin/$command
 echo '#!/bin/bash' | sudo tee "/usr/local/bin/$command" >/dev/null
 echo "sudo openvpn /etc/openvpn/client/$ovpn" | sudo tee -a "/usr/local/bin/$command" >/dev/null
 
