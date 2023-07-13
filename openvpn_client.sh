@@ -4,7 +4,23 @@ echo "# Are you ready to install OpenVPN? (Y/N) #"
 read -r one
 
 if [ "$one" == "Y" ]; then
-    sudo apt update && sudo apt upgrade -y && sudo apt install openvpn -y
+    echo "######## What distro are you on? #######"
+    echo "# Your options are ( Debian ) ( Arch ) #"
+    read -r distro
+    if [ "$distro" == "Debian" ]; then
+        sudo apt update && sudo apt upgrade -y && sudo apt install openvpn -y
+    elif [ "$distro" == "Arch" ]; then
+        sudo pacman -Syu && sudo pacman -S openvpn
+    else
+        echo "# That was not a option would you like to restart? #"
+        echo "################# ( Y / N ) ########################"
+        read -r var
+        if [ "$var" == "Y" ]; then
+            sudo ./openvpn_client.sh
+        else
+            exit
+        fi
+    fi
 else
     echo "# Okay, run the script again when you are ready to install! #"
     exit
