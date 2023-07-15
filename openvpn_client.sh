@@ -33,12 +33,9 @@ echo "# Remember to include the .ovpn at the end of the file!! #"
 read -r ovpn
 clear
 
-echo "###### Where is your $ovpn file located? ##########"
-echo "# (PS) Just the path to the directory $ovpn is in #"
-echo "# dont include $ovpn in the path to the directory #"
-read -r location
+location=$(sudo find / -name $ovpn 2>/dev/null)
 
-sudo mv "$location/$ovpn" "/etc/openvpn/client/$ovpn"
+sudo mv "$location" "/etc/openvpn/client/$ovpn"
 clear
 
 echo "# What would you like to call your OpenVPN command? #"
