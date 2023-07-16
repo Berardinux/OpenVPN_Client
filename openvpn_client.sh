@@ -61,12 +61,12 @@ stop_vpn() {
     echo "OpenVPN stopped."
 }
 
-if [ $# -eq 0 ]; then
+if [ \$# -eq 0 ]; then
     echo "Usage: {start/stop}"
     exit 1
 fi
 
-case "$1" in
+case "\$1" in
     start)
         start_vpn
         ;;
