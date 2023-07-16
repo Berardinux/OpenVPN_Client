@@ -50,9 +50,9 @@ cat << 'EOM' | sudo tee -a "/usr/local/bin/$command" >/dev/null
 
 start_vpn() {
     echo "Starting OpenVPN..."
-    nohup sudo openvpn /etc/openvpn/client/Berardinux.ovpn > /dev/null 2>&1 &
+    nohup sudo openvpn /etc/openvpn/client/$ovpn > /dev/null 2>&1 &
     echo "OpenVPN started. You can now close the terminal."
-    echo "The command to stop the VPN is {roachvpn stop}"
+    echo "The command to stop the VPN is {$command stop}"
 }
 
 stop_vpn() {
