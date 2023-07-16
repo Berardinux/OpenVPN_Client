@@ -45,7 +45,7 @@ clear
  
 sudo touch "/usr/local/bin/$command"
 sudo chmod 777 /usr/local/bin/$command
-cat << 'EOM' | sudo tee -a "/usr/local/bin/$command" >/dev/null
+cat << EOM | sudo tee -a "/usr/local/bin/$command" >/dev/null
 #!/bin/bash
 
 start_vpn() {
