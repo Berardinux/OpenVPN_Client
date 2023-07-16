@@ -45,9 +45,41 @@ clear
  
 sudo touch "/usr/local/bin/$command"
 sudo chmod 777 /usr/local/bin/$command
-echo '#!/bin/bash' | sudo tee "/usr/local/bin/$command" >/dev/null
-echo "sudo openvpn /etc/openvpn/client/$ovpn" | sudo tee -a "/usr/local/bin/$command" >/dev/null
+cat << 'EOM' | sudo tee -a "/usr/local/bin/$command" >/dev/null
+#!/bin/bash
 
+start_vpn() {
+    echo "Starting OpenVPN..."
+    nohup sudo openvpn /etc/openvpn/client/Berardinux.ovpn > /dev/null 2>&1 &
+    echo "OpenVPN started. You can now close the terminal."
+    echo "The command to stop the VPN is {roachvpn stop}"
+}
+
+stop_vpn() {
+    echo "Stopping OpenVPN..."
+    sudo killall openvpn
+    echo "OpenVPN stopped."
+}
+
+if [ $# -eq 0 ]; then
+    echo "Usage: {start/stop}"
+    exit 1
+fi
+
+case "$1" in
+    start)
+        start_vpn
+        ;;
+    stop)
+        stop_vpn
+        ;;
+    *)
+        echo "Unknown option: $1"
+        echo "Usage: $0 {start/stop}"
+        exit 1
+        ;;
+esac
+EOM
 echo "# What would you like the permissions to be for the .ovpn file? (Suggested = 660) #"
 echo "#################### Read permission: Numeric value of 4 ##########################"
 echo "################### Write permission: Numeric value of 2 ##########################"
