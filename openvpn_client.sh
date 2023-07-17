@@ -94,9 +94,9 @@ fi
 sudo mkdir /opt/OVPN_APP
 sudo mv PICS /opt/OVPN_APP
 sudo touch /opt/OVPN_APP/ovpn_app.conf
-sudo touch /home/$USER/.local/share/application/OpenVPN.desktop
+sudo touch /home/$USER/.local/share/applications/OpenVPN.desktop
 sudo chmod 777 OVPN_APP.py
-sudo chmod 777 /home/$USER/.local/share/application/OpenVPN.desktop
+sudo chmod 777 /home/$USER/.local/share/applications/OpenVPN.desktop
 sudo mv OVPN_APP.py /opt/OVPN_APP
 
 cat << EOM | sudo tee -a "/opt/OVPN_APP/ovpn_app.conf" >/dev/null
