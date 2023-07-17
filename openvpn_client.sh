@@ -113,11 +113,11 @@ EOM
 
 cat << EOM | sudo tee -a "/home/$USER/.local/share/applications/OpenVPN.desktop" >/dev/null
 [Desktop Entry]
-Encoding=UTF-8
 Type=Application
-Terminal=false
-Exec=/opt/OVPN_APP/OVPN_APP.py
-Name OpenVPN
+Name=OpenVPN
+Comment=OpenVPN
 Icon=/opt/OVPN_APP/PICS/openvpn.png
+Exec=/opt/OVPN_APP/OVPN_APP.py
+Terminal=false
 EOM
 echo "###### To Connect to the VPN run the command $command ######"
