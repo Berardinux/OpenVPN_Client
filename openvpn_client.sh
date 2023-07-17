@@ -90,9 +90,10 @@ else
 fi
 
 sudo mkdir /opt/OVPN_APP
-sudo mkdir /opt/OVPN_APP/PICS
+sudo mv PICS /opt/OVPN_APP/PICS
 sudo touch /opt/OVPN_APP/ovpn_app.conf
 sudo mv OVPN_APP.py /opt/OVPN_APP
+
 cat << EOM | sudo tee -a "/opt/OVPN_APP/ovpn_app.conf" >/dev/null
 ## ovpn_app.conf
 
