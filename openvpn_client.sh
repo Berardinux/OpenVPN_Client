@@ -7,6 +7,7 @@ clear
 
 echo "# Would you like to install the OpenVPN GUI Button? (Y/N)"
 read -r button
+clear
 
 echo "########## What is your .ovpn file called? ###############"
 echo "# Remember to include the .ovpn at the end of the file!! #"
