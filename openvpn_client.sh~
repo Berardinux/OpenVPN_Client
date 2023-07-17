@@ -16,6 +16,7 @@ echo "# What would you like to call your OpenVPN command? #"
 read -r command
 clear
 
+
 if [ "$one" == "Y" ]; then
     echo "######## What distro are you on? #######"
     echo "# Your options are ( Debian ) ( Arch ) #"
@@ -82,36 +83,4 @@ case "\$1" in
 esac
 EOM
 
-if [ "$button" == "Y" ]; then
-	echo "Installing OVPN_APP to system!"
-else
-	echo "###### To Connect to the VPN run the command $command ######"
-	exit 1
-fi
-
-sudo mkdir /opt/OVPN_APP
-sudo mkdir /opt/OVPN_APP/PICS
-sudo touch /opt/OVPN_APP/ovpn_app.conf
-sudo mv OVPN_APP.py /opt/OVPN_APP
-cat << EOM | sudo tee -a "/opt/OVPN_APP/ovpn_app.conf" >/dev/null
-## ovpn_app.conf
-
-The name of the .ovpn files ( 
-	$ovpn
-)
-
-The name of the Commands (
-	$command
-)
-EOM
-
-cat << EOM | sudo tee -a "/home/$USER/.local/share/applications" >/dev/null
-[Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Terminal=false
-Exec=/opt/OVPN_APP/OVPN_APP.py
-Name OpenVPN
-Icon=/opt/OVPN_APP/PICS/openvpn.png
-EOM
 echo "###### To Connect to the VPN run the command $command ######"
