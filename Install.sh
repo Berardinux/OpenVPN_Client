@@ -47,7 +47,7 @@ else
     clear
     if [ -z $answer ] || [ "$answer" = "Y" ]; then
         echo "Okay Cool!"
-        ovpn=$($location | rev | cut -d'/' -f1 | rev)
+        ovpn=$(echo "$location" | rev | cut -d'/' -f1 | rev)
     elif [ "$answer" = "n" ]; then
         echo "Okay what is your .ovpn file called, including the .ovpn at the end?"
         read -r ovpn
