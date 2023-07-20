@@ -49,6 +49,7 @@ else
         anser=Y
         if [ "$answer" = "Y" ]; then
             echo "Okay Cool!"
+            ovpn=$($location | rev | cut -d'/' -f1 | rev)
         elif [ "$answer" = "n" ]; then
             echo "Okay what is your .ovpn file called, including the .ovpn at the end?"
             read -r ovpn
@@ -85,8 +86,7 @@ else
     exit
 fi
 
-location=$(sudo find / -name "$ovpn" 2>/dev/null)
-sudo mv "$location" "/etc/openvpn/client/$ovpn"
+sudo mv "$location" "/etc/openvpn/client"
 sudo chmod 660 "/etc/openvpn/client/$ovpn"
 clear
 
