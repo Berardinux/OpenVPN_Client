@@ -5,6 +5,9 @@ import subprocess
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
+completed_process = subprocess.run(["sed", "-n", "3p", "/opt/OpenVPN/ovpn_app.conf"], capture_output=True, text=True)
+command = completed_process.stdout.strip()
+
 class MyApplication(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="OpenVPN")
@@ -39,10 +42,10 @@ class MyApplication(Gtk.Window):
 
     def on_switch_toggled(self, switch, gparam):
         if switch.get_active():
-            subprocess.run(["pkexec", "roachvpn", "start"])
+            subprocess.run(["pkexec", command, "start"])
             self.is_vpn_on = True
         else:
-            subprocess.run(["pkexec", "roachvpn", "stop"])
+            subprocess.run(["pkexec", command, "stop"])
             self.is_vpn_on = False
 
 win = MyApplication()
