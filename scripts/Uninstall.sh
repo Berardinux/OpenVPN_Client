@@ -16,7 +16,7 @@ if [ -z "$uninstall" ] || [ "$uninstall" = "Y" ]; then
 		echo "This Uninstall script will not work on you Distro."
 		exit 1
 	fi
-elif [ "$uninstall" = "N" ]; then
+elif [ "$uninstall" = "n" ]; then
 	echo "Okay then."
 	exit 1
 else
