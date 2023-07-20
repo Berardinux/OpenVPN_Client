@@ -45,19 +45,16 @@ else
     echo "$location"
     read -r answer
     clear
-    if [ -z $answer ]; then
-        anser=Y
-        if [ "$answer" = "Y" ]; then
-            echo "Okay Cool!"
-            ovpn=$($location | rev | cut -d'/' -f1 | rev)
-        elif [ "$answer" = "n" ]; then
-            echo "Okay what is your .ovpn file called, including the .ovpn at the end?"
-            read -r ovpn
-            location=$(sudo find / -name "$ovpn" 2>/dev/null)
-            if [ -z "$location" ]; then
-                echo "Your .ovpn was not found. Try again later."
-                exit 1
-            fi
+    if [ -z $answer ] || [ "$answer" = "Y" ]; then
+        echo "Okay Cool!"
+        ovpn=$($location | rev | cut -d'/' -f1 | rev)
+    elif [ "$answer" = "n" ]; then
+        echo "Okay what is your .ovpn file called, including the .ovpn at the end?"
+        read -r ovpn
+        location=$(sudo find / -name "$ovpn" 2>/dev/null)
+        if [ -z "$location" ]; then
+            echo "Your .ovpn was not found. Try again later."
+            exit 1
         fi
     fi
 fi
