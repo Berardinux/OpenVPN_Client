@@ -95,9 +95,9 @@ cat << EOM | sudo tee -a "/usr/local/bin/$command" >/dev/null
 start_vpn() {
     echo "Starting OpenVPN..."
     nohup sudo openvpn "/etc/openvpn/client/$ovpn" > /dev/null 2>&1 &
-    PID=$!
+    PID=\$!
     sleep 5
-    if ps -p $PID >/dev/null; then
+    if ps -p \$PID >/dev/null; then
         echo "OpenVPN started. You can now close the terminal."
         echo "The command to stop the VPN is {$command stop}"
     else
