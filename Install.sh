@@ -6,11 +6,12 @@ location=$(find / -type f -name "*.ovpn" 2>/dev/null)
 command=$(echo "$location" | rev | cut -d'/' -f1 | rev | cut -d'.' -f1)
 num_lines=$(echo "$location" | grep -c '^')
 
-if [ $(id -u) -eq 0 ]; then
-	current_user=$SUDO_USER
+if [ "$(id -u)" -ne 0 ]; then
+	echo "Please run the script with sudo or as root"
+	exit 1
 else
-	current_user=$USER
-fi
+	current_user=$SUDO_USER
+fi	
 
 if [ "$distro" = "Debian" ] || [ "$distro" = "Ubuntu" ]; then
     if dpkg -l | grep -q "openvpn"; then
