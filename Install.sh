@@ -4,6 +4,7 @@ clear
 distro=$(grep -w "NAME" /etc/os-release | cut -d= -f2 | tr -d '"' | cut -d' ' -f1)
 location=$(find / -type f -name "*.ovpn" 2>/dev/null)
 command=$(echo "$location" | rev | cut -d'/' -f1 | rev | cut -d'.' -f1)
+num_lines=$(echo "$location" | grep -c '^')
 
 if [ $(id -u) -eq 0 ]; then
 	current_user=$SUDO_USER
@@ -41,20 +42,39 @@ if [ -z "$location" ]; then
     echo "Not able to find .ovpn file try again when you have one"
     exit 1
 else
-    echo "Is this your .ovpn file? (Y/n)"
-    echo "$location"
-    read -r answer
-    clear
-    if [ -z $answer ] || [ "$answer" = "Y" ]; then
-        echo "Okay Cool!"
-        ovpn=$(echo "$location" | rev | cut -d'/' -f1 | rev)
-    elif [ "$answer" = "n" ]; then
-        echo "Okay what is your .ovpn file called, including the .ovpn at the end?"
-        read -r ovpn
-        location=$(sudo find / -name "$ovpn" 2>/dev/null)
-        if [ -z "$location" ]; then
-            echo "Your .ovpn was not found. Try again later."
-            exit 1
+    if [ "$num_lines" -gt 1 ]; then
+        clear
+        echo "Which of the .ovpn files would you like to use?"
+        echo "Pick by the line number you would like to use."
+        echo "(1/2/3/4/...)"
+        read -r num
+        if [[ $num =~ ^[0-9]+$ ]]; then
+            location=$(echo "$location" | sed -n "${num}p")
+            clear
+            echo "Is this your .ovpn file? (Y/n)"
+            echo "$location"
+            read -r answer
+            if [ "$anser" = "Y" ]; then
+                echo "Okay Cool!"
+                ovpn=$(echo "$location" | rev | cut -d'/' -f1 | rev)
+                
+
+    else
+        echo "Is this your .ovpn file? (Y/n)"
+        echo "$location"
+        read -r answer
+        clear
+        if [ -z $answer ] || [ "$answer" = "Y" ]; then
+            echo "Okay Cool!"
+            ovpn=$(echo "$location" | rev | cut -d'/' -f1 | rev)
+        elif [ "$answer" = "n" ]; then
+            echo "Okay what is your .ovpn file called, including the .ovpn at the end?"
+            read -r ovpn
+            location=$(sudo find / -name "$ovpn" 2>/dev/null)
+            if [ -z "$location" ]; then
+                echo "Your .ovpn was not found. Try again later."
+                exit 1
+            fi
         fi
     fi
 fi
